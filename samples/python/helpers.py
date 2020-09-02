@@ -141,6 +141,11 @@ def getT2ttSignalWeight(sample, lumi, cacheDir):
     del hNEvents
     return signalWeight
 
+def GetFilterEff(deltaM) :
+    if deltaM == 30 :
+        return 0.327
+    else :
+        return 1.
 
 def getT2ttISRNorm(sample, mStop, mLSP, massPoints, year, signal="T2tt", fillCache=False, cacheDir='/tmp/ISR/', overwrite=False):
     '''
@@ -162,10 +167,10 @@ def getT2ttISRNorm(sample, mStop, mLSP, massPoints, year, signal="T2tt", fillCac
         isr = ISRweight()
         isrWeightString = isr.getWeightString()
 
-        sample.chain.Draw("Max$(GenPart_mass*(abs(GenPart_pdgId)==1000022)):Max$(GenPart_mass*(abs(GenPart_pdgId)==1000006))>>hReweighted("+','.join([bStr, bStr])+")", isrWeightString+'*(1)',"goff")
+        sample.chain.Draw("Max$(GenPart_mass*(abs(GenPart_pdgId)==1000022)):Max$(GenPart_mass*(abs(GenPart_pdgId)==1000006))>>hReweighted("+','.join([bStr, bStr])+")", isrWeightString+"*{}".format(GetFilterEff(deltaM=mStop-mLSP))+'*(1)',"goff")
         hReweighted = ROOT.gDirectory.Get("hReweighted")
 
-        sample.chain.Draw("Max$(GenPart_mass*(abs(GenPart_pdgId)==1000022)):Max$(GenPart_mass*(abs(GenPart_pdgId)==1000006))>>hCentral("+','.join([bStr, bStr])+")", '(1)',"goff")
+        sample.chain.Draw("Max$(GenPart_mass*(abs(GenPart_pdgId)==1000022)):Max$(GenPart_mass*(abs(GenPart_pdgId)==1000006))>>hCentral("+','.join([bStr, bStr])+")", "*{}".format(GetFilterEff(deltaM=mStop-mLSP))+'(1)',"goff")
         hCentral = ROOT.gDirectory.Get("hCentral")
 
         for mSt, mNeu in massPoints:
