@@ -1,13 +1,16 @@
 class default_locations:
 
-    #mc_2016_data_directory = "/mnt/hephy/cms/priya.hussain/StopsCompressed/nanoTuples/"
+    ### main directory
+    # mc_2016_data_directory = "/mnt/hephy/cms/priya.hussain/StopsCompressed/nanoTuples/"
+    
     #change it to scratch for v6 of 2016:
+    # directory for MC
     mc_2016_data_directory = "/scratch/priya.hussain/StopsCompressed/nanoTuples/"
     #mc_2016_postProcessing_directory = "compstops_2016_nano_v8/MetSingleLep/"
-    mc_2016_postProcessing_directory = "compstops_2016_nano_v15/MetSingleLep/"
+    mc_2016_postProcessing_directory = "compstops_2016_nano_v17/MetSingleLep/"
     signal_2016_postProcessing_directory = "compstops_2016_nano_v20/MetSingleLep/"
 
-    
+    # directory for Data
     #data_2016_data_directory = "/mnt/hephy/cms/priya.hussain/StopsCompressed/nanoTuples/"
     data_2016_data_directory = "/scratch/priya.hussain/StopsCompressed/nanoTuples/"
     data_2016_postProcessing_directory = "compstops_2016_nano_v18/MetSingleLep/"
